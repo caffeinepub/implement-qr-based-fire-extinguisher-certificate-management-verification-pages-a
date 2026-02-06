@@ -164,7 +164,7 @@ export const siteContent = {
 
   contact: {
     address: '72, Reti Mandi Square, Rajendra Nagar, Indore – 452012',
-    email: 'shreefirebase@yahoo.com',
+    email: 'shreefireworks@yahoo.com',
     phone: '+91 9171608851',
   },
 };

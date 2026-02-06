@@ -65,11 +65,11 @@ export function SiteFooter() {
                 <span>+91 9171608851</span>
               </a>
               <a
-                href="mailto:shreefirebase@yahoo.com"
+                href="mailto:shreefireworks@yahoo.com"
                 className="flex items-start space-x-2 text-sm text-secondary-foreground/70 transition-colors hover:text-secondary-foreground"
               >
                 <Mail className="mt-0.5 h-4 w-4 flex-shrink-0" />
-                <span>shreefirebase@yahoo.com</span>
+                <span>shreefireworks@yahoo.com</span>
               </a>
               <div className="flex items-start space-x-2 text-sm text-secondary-foreground/70">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" />

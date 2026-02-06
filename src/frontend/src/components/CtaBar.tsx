@@ -42,7 +42,7 @@ export function CtaBar({ variant = 'default', className = '' }: CtaBarProps) {
             </a>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-            <a href="mailto:shreefirebase@yahoo.com">
+            <a href="mailto:shreefireworks@yahoo.com">
               <Mail className="mr-2 h-5 w-5" />
               Email Us
             </a>

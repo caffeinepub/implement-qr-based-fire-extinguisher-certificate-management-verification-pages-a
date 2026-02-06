@@ -1,144 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "QR-based Fire Extinguisher Certificate Verification, Admin Management UI, QR Rendering, and Client-side PDF Download",
+  "title": "Update contact email across frontend UI, mailto links, and SEO copy",
   "requirements": [
     {
-      "id": "REQ-4",
-      "summary": "Add a public certificate verification route at /certificate/$token that fetches and renders certificate details with validity status and expired warning.",
+      "id": "REQ-11",
+      "summary": "Replace the old contact email with shreefireworks@yahoo.com everywhere it appears in frontend UI text, mailto links, and SEO/meta descriptions, ensuring the Contact page still renders and links correctly via siteContent.contact.email.",
       "acceptanceCriteria": [
-        "Navigating directly to /certificate/<token> renders a complete certificate view when the token exists.",
-        "If the token does not exist, the page shows a not-found state (no crash).",
-        "Validity is computed from Next Due Date vs current date and displayed as Valid or Expired.",
-        "When Expired, the specified warning text is displayed prominently.",
-        "Page includes: company logo, company name, tagline text, client info, service info, technical details, authorization details, footer text, certificate number, and a small QR display."
+        "In frontend/src/content/siteContent.ts, siteContent.contact.email is exactly \"shreefireworks@yahoo.com\" (replacing the current incorrect value).",
+        "All mailto links that currently use \"shreefirebase@yahoo.com\" are updated to \"mailto:shreefireworks@yahoo.com\" (including frontend/src/components/SiteFooter.tsx and frontend/src/components/CtaBar.tsx).",
+        "Any user-visible text that currently shows \"shreefirebase@yahoo.com\" is updated to \"shreefireworks@yahoo.com\" (including the footer email label).",
+        "In frontend/src/content/seoMeta.ts, the contact page description no longer references \"shreefirebase@yahoo.com\" and instead references \"shreefireworks@yahoo.com\".",
+        "The Contact page email card continues to render the updated email via siteContent.contact.email and opens the correct email address when clicked."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CertificateVerificationPage.tsx",
-          "operation": "create",
-          "description": "Create the public-facing certificate verification page that reads the route token, fetches certificate details via the backend actor, renders the required labeled sections in English, computes Valid/Expired from nextDueDate, and shows the exact expired warning text when applicable. Use shadcn-ui primitives (e.g., Card, Alert, Separator) for consistent layout/states; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/content/siteContent.ts",
           "operation": "modify",
-          "description": "Register the /certificate/$token route and wire it to CertificateVerificationPage so direct navigation works (including refresh/deep links)."
+          "description": "Update siteContent.contact.email to exactly \"shreefireworks@yahoo.com\" so all content sourcing this value reflects the corrected email."
         },
         {
-          "path": "frontend/src/utils/certificates.ts",
-          "operation": "create",
-          "description": "Add date parsing/formatting helpers for certificate fields (including robust nextDueDate comparison vs current date) and shared label/value formatting for UI rendering."
-        },
-        {
-          "path": "frontend/src/components/CertificateDetailsView.tsx",
-          "operation": "create",
-          "description": "Create a reusable certificate details renderer used by both the public verification page and admin views to ensure identical labels/sections and reduce duplication. Use existing BrandLogo for logo display and shadcn-ui layout components; verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Create a protected Admin UI (Internet Identity login) to list, create, and edit certificates, including QR generation after saving.",
-      "acceptanceCriteria": [
-        "Admin area is accessible via a dedicated route (e.g., /admin/certificates) and prompts login when not authenticated.",
-        "Non-admin authenticated users are blocked from admin functions with a clear message.",
-        "Admin can create a new certificate record and is shown the generated certificate number and public verification URL token after save.",
-        "Admin can edit an existing certificate and changes persist.",
-        "Admin can see a list/table of certificates with at least certificate number, client name, next due date, and a link to the public verification page."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/AdminCertificatesListPage.tsx",
-          "operation": "create",
-          "description": "Create the admin certificates list page showing a table of certificates (certificate number, client name, next due date, link to /certificate/<token>) and actions to create/edit. Use shadcn-ui Table/Card/Button components for UI; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminCertificateEditorPage.tsx",
-          "operation": "create",
-          "description": "Create the admin certificate create/edit page with a form containing all specified fields (including optional client address/location and remarks), supporting both new creation and editing existing records. After save, display the returned certificate number and the public verification token/URL, plus an admin preview section (including QR). Use shadcn-ui Form-like primitives (Input, Textarea, Label, Select where helpful) and Alert for success/error; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/admin/AdminGate.tsx",
-          "operation": "create",
-          "description": "Add an admin route guard component that (1) prompts Internet Identity login when unauthenticated and (2) checks admin status via the backend actor (e.g., isCallerAdmin/getCallerUserRole) to either render the admin page or show an access denied message for non-admin authenticated users. Use shadcn-ui Button/Alert for messaging; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useCertificates.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for admin list, create, update, and public lookup of certificates using the existing useActor hook (without modifying immutable hooks). Ensure queries are disabled until the actor is ready and surface authorization errors as user-friendly messages."
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/SiteFooter.tsx",
           "operation": "modify",
-          "description": "Register admin routes (at minimum /admin/certificates and an editor route for create/edit) and wrap them with AdminGate so unauthenticated users see a login prompt and non-admin users see a clear blocked message."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Render QR codes in the UI encoding the canonical public verification URL and display them on both public verification and admin views.",
-      "acceptanceCriteria": [
-        "QR code is generated from the canonical verification URL and updates correctly per certificate.",
-        "QR code is visible in the public certificate verification page and in the admin certificate view/download area.",
-        "QR code is scannable from the screen in common mobile camera apps and resolves to the same certificate page."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/QrCode.tsx",
-          "operation": "create",
-          "description": "Create a reusable QR component that renders a scannable QR code for a provided string value (the verification URL). Implement QR rendering without adding external dependencies by including a small in-repo QR generation utility. Ensure the component supports sizing appropriate for both small public display and larger admin/download display."
+          "description": "Replace the hardcoded footer email text and the mailto href currently using \"shreefirebase@yahoo.com\" so they use \"shreefireworks@yahoo.com\"."
         },
         {
-          "path": "frontend/src/utils/qr.ts",
-          "operation": "create",
-          "description": "Implement QR encoding utilities to support QrCode rendering and ensure stability across browsers (e.g., consistent error correction level and quiet zone)."
-        },
-        {
-          "path": "frontend/src/utils/origin.ts",
-          "operation": "create",
-          "description": "Add a small helper to compute the canonical deployed origin at runtime (window.location.origin) and build the verification URL as origin + /certificate/<token>."
-        },
-        {
-          "path": "frontend/src/pages/CertificateVerificationPage.tsx",
+          "path": "frontend/src/components/CtaBar.tsx",
           "operation": "modify",
-          "description": "Wire the QrCode component into the public verification page to show a small QR display encoding the canonical verification URL for the same token."
+          "description": "Update the Email Us button mailto link to use \"mailto:shreefireworks@yahoo.com\" instead of the old address."
         },
         {
-          "path": "frontend/src/pages/admin/AdminCertificateEditorPage.tsx",
+          "path": "frontend/src/content/seoMeta.ts",
           "operation": "modify",
-          "description": "Wire the QrCode component into the admin certificate view/preview area so admins can see the QR that will be printed/downloaded, encoding origin + /certificate/<token>."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add an admin-only client-side “Download PDF” action generating an A4, print-ready certificate PDF including branding, all details, certificate number, and QR code.",
-      "acceptanceCriteria": [
-        "Admin can click “Download PDF” for a certificate and receives a generated PDF file.",
-        "The PDF is A4-sized and contains all fields shown on the public verification page plus certificate number and QR code.",
-        "PDF includes the existing static logo asset from frontend/public/assets/generated/shree-fire-works-logo.dim_512x512.png.",
-        "PDF generation works client-side without requiring external services."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/pdf/certificatePdf.ts",
-          "operation": "create",
-          "description": "Implement client-side PDF generation for an A4 certificate by composing a print-ready layout into an offscreen canvas (including text, logo, and QR) and converting it into a downloadable PDF Blob. Ensure the logo is sourced from frontend/public/assets/generated/shree-fire-works-logo.dim_512x512.png and that the PDF output is A4 sized."
+          "description": "Update seoMeta.contact.description to reference \"shreefireworks@yahoo.com\" (and remove any mention of \"shreefirebase@yahoo.com\")."
         },
         {
-          "path": "frontend/src/components/admin/DownloadCertificatePdfButton.tsx",
-          "operation": "create",
-          "description": "Create a button component for admins that triggers PDF generation and downloads the file (including appropriate filename containing certificate number). Use shadcn-ui Button and show in-progress/error states via shadcn-ui Alert/toast-style messaging where available; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminCertificateEditorPage.tsx",
+          "path": "frontend/src/pages/ContactPage.tsx",
           "operation": "modify",
-          "description": "Add the “Download PDF” action to the admin certificate view/download area and pass all required data (certificate details, computed verification URL, QR render source) into the PDF generator."
-        },
-        {
-          "path": "frontend/src/components/CertificateDetailsView.tsx",
-          "operation": "modify",
-          "description": "Ensure the shared details view exposes/exports the exact set of labeled fields needed for the PDF (matching the public page) so the PDF includes all entered details consistently."
+          "description": "Verify the Contact page email card continues to render from siteContent.contact.email and that the mailto link composes from that value (no hardcoded old email remains)."
         }
       ]
     }

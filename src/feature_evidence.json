@@ -2,13 +2,13 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-public-certificate-verification-page-route-at-certificate-token-that-fetches-certificate-details-from-the-backend-and-renders-the-specified-layout-sections-and-labels-in-english-including-validity-status-valid-expired-and-a-clear-warning-when-expired-refilling-due-please-contact-authorized-service-provider",
-      "featureTitle": "Create a public Certificate Verification page route at /certificate/$token that fetches certificate details from the backend and renders the specified layout sections and labels in English, including validity status (Valid/Expired) and a clear warning when expired: “⚠️ Refilling Due – Please Contact Authorized Service Provider”.",
+      "featureId": "feature-update-the-site-contact-email-address-to-shreefireworks-yahoo-com-everywhere-it-appears-in-the-frontend-including-displayed-text-mailto-links-and-any-seo-meta-copy-that-mentions-the-email",
+      "featureTitle": "Update the site contact email address to \"shreefireworks@yahoo.com\" everywhere it appears in the frontend, including displayed text, mailto links, and any SEO/meta copy that mentions the email.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/CertificateDetailsView.tsx",
-        "frontend/src/pages/CertificateVerificationPage.tsx",
-        "frontend/src/utils/certificates.ts"
+        "frontend/src/components/CtaBar.tsx",
+        "frontend/src/components/SiteFooter.tsx",
+        "frontend/src/content/seoMeta.ts",
+        "frontend/src/content/siteContent.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -19,75 +19,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-an-admin-ui-protected-by-internet-identity-login-to-create-edit-and-list-certificates-with-a-data-entry-form-containing-all-fields-specified-by-the-user-and-automatic-qr-generation-after-saving",
-      "featureTitle": "Create an Admin UI (protected by Internet Identity login) to create, edit, and list certificates, with a data entry form containing all fields specified by the user and automatic QR generation after saving.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/admin/AdminGate.tsx",
-        "frontend/src/hooks/useCertificates.ts",
-        "frontend/src/pages/admin/AdminCertificateEditorPage.tsx",
-        "frontend/src/pages/admin/AdminCertificatesListPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-qr-code-rendering-on-the-frontend-that-encodes-the-public-verification-url-for-the-certificate-using-the-app-s-deployed-origin-plus-certificate-token-and-display-it-both-on-the-admin-certificate-view-and-on-the-public-verification-page-small-display",
-      "featureTitle": "Implement QR code rendering on the frontend that encodes the public verification URL for the certificate (using the app’s deployed origin plus /certificate/<token>), and display it both on the admin certificate view and on the public verification page (small display).",
-      "files": [
-        "frontend/src/components/QrCode.tsx",
-        "frontend/src/pages/CertificateVerificationPage.tsx",
-        "frontend/src/pages/admin/AdminCertificateEditorPage.tsx",
-        "frontend/src/utils/origin.ts",
-        "frontend/src/utils/qr.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-download-pdf-capability-for-admins-to-generate-an-a4-print-ready-certificate-pdf-that-includes-all-entered-details-company-branding-logo-name-tagline-certificate-number-and-the-qr-code",
-      "featureTitle": "Add “Download PDF” capability for admins to generate an A4, print-ready certificate PDF that includes all entered details, company branding (logo/name/tagline), certificate number, and the QR code.",
-      "files": [
-        "frontend/src/components/CertificateDetailsView.tsx",
-        "frontend/src/components/admin/DownloadCertificatePdfButton.tsx",
-        "frontend/src/pages/admin/AdminCertificateEditorPage.tsx",
-        "frontend/src/utils/pdf/certificatePdf.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
+        "REQ-11"
       ],
       "confidence": "high"
     }

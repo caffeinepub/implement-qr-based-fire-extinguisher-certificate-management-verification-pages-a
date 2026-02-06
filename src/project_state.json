@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 11,
   "summary": "ICP full-stack dapp scaffold for a fire-safety services website, now planning a QR-based Fire Extinguisher Certificate & Verification system with admin data entry, auto-generated certificate numbers/QR codes, public verification pages, and downloadable A4 PDF certificates.",
   "architectural_notes": [
     "ICP full-stack architecture: Motoko backend canister + React/Vite frontend canister with generated Candid/agent bindings.",
@@ -10,12 +10,14 @@
     "Build/deploy is standardized via build-template (Dockerfile, icp.yaml, deploy.sh) and workspace package management (pnpm).",
     "Add certificate records storage in backend canister with admin-only create/update; public read-only access by secure, non-guessable certificate token/ID.",
     "Implement public route /certificate/:id (or token) to render verification page with certificate details + validity status (valid/expired) based on next due date.",
-    "Provide PDF generation for certificates (A4, print-ready) including branding + QR code, accessible from admin panel."
+    "Provide PDF generation for certificates (A4, print-ready) including branding + QR code, accessible from admin panel.",
+    "Current admin authorization is tied to a backend admin-principal allowlist (often only the principal used at first canister deploy), causing non-listed Internet Identity principals to see “Access Denied”."
   ],
   "known_issues": [
-    "Automated build/deployment attempts are failing to complete for the requested feature implementation (AI unable to complete request / deployment error)."
+    "Automated build/deployment attempts are failing to complete for the requested feature implementation (AI unable to complete request / deployment error).",
+    "Admin panel shows “Access Denied / Unauthorized” because the current Internet Identity principal is not registered as an admin in the backend (admin allowlist not configured for the user)."
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "generatedImages": [
     {
       "filename": "frontend/public/assets/generated/hero-industrial-fire-safety.dim_1920x800.png",
@@ -148,6 +150,22 @@
         "REQ-7"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-improve-the-admingate-access-denied-experience-to-help-the-user-self-resolve-by-showing-the-logged-in-principal-and-providing-guided-next-steps-including-claiming-initial-admin-when-allowed",
+      "title": "Improve the AdminGate “Access Denied” experience to help the user self-resolve by showing the logged-in principal and providing guided next steps (including claiming initial admin when allowed).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-contact-email-address-to-shreefireworks-yahoo-com-everywhere-it-appears-in-the-frontend-including-displayed-text-mailto-links-and-any-seo-meta-copy-that-mentions-the-email",
+      "title": "Update the site contact email address to \"shreefireworks@yahoo.com\" everywhere it appears in the frontend, including displayed text, mailto links, and any SEO/meta copy that mentions the email.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -187,6 +205,26 @@
       "reqIds": [
         "REQ-8"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Fix admin login/authorization setup so legitimate users can access the Admin panel (configure initial admin principal and/or provide a way to add admin principals; improve Access Denied handling/onboarding).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Implement an admin bootstrap flow so a legitimate user can become the first administrator when no admins are configured yet, while keeping admin management secure once an admin exists.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Update the site’s contact email to shreefireworks@yahoo.com wherever it appears (e.g., Contact page, footer/header, mailto links, and any contact form destination/config).",
+      "reqIds": [],
       "status": "pending"
     }
   ],

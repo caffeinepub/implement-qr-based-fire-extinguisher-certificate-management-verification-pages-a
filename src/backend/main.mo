@@ -8,15 +8,14 @@ import Nat "mo:core/Nat";
 import Principal "mo:core/Principal";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
-import Migration "migration";
 
-(with migration = Migration.run)
 actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
   public type UserProfile = {
     name : Text;
+    // Additional fields if needed
   };
 
   let userProfiles = Map.empty<Principal, UserProfile>();
@@ -78,6 +77,7 @@ actor {
   let certificates = Map.empty<Nat, FireExtinguisherCertificateDto>();
   let tokenToCertNumber = Map.empty<Text, Nat>();
 
+  // Public endpoint - no authorization needed for contact form submission
   public shared ({ caller }) func upsertInquiry(name : Text, company : ?Text, phone : Text, email : Text, serviceNeeded : Text, message : Text) : async () {
     let timestamp = Time.now();
     let inquiry : ContactInquiryDto = {
@@ -226,6 +226,7 @@ actor {
     certificates.get(certificateNumber);
   };
 
+  // Public endpoint - allows anyone to verify a certificate by its unique token
   public query ({ caller }) func getCertificateByToken(token : Text) : async ?FireExtinguisherCertificateDto {
     switch (tokenToCertNumber.get(token)) {
       case (null) { null };

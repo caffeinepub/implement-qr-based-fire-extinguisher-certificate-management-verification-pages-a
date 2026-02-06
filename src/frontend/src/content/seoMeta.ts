@@ -25,6 +25,6 @@ export const seoMeta = {
   },
   contact: {
     title: 'Contact Us - SHREE FIRE WORKS | Fire Safety Supplier Indore',
-    description: 'Contact SHREE FIRE WORKS for fire safety solutions in Indore. Call +91 9171608851 or email shreefirebase@yahoo.com for fire extinguishers and fire safety systems.',
+    description: 'Contact SHREE FIRE WORKS for fire safety solutions in Indore. Call +91 9171608851 or email shreefireworks@yahoo.com for fire extinguishers and fire safety systems.',
   },
 };
