@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "ICP full-stack dapp scaffold for a fire-safety services website, now planning a QR-based Fire Extinguisher Certificate & Verification system with admin data entry, auto-generated certificate numbers/QR codes, public verification pages, and downloadable A4 PDF certificates.",
+  "architectural_notes": [
+    "ICP full-stack architecture: Motoko backend canister + React/Vite frontend canister with generated Candid/agent bindings.",
+    "Authentication uses Internet Identity; frontend creates authenticated actors via hooks.",
+    "UI layer is based on shadcn/ui components and Tailwind styling; shared SiteLayout with Header/Footer wraps routed pages.",
+    "Content/SEO metadata is centralized in frontend content modules (routes, siteContent, seoMeta).",
+    "Build/deploy is standardized via build-template (Dockerfile, icp.yaml, deploy.sh) and workspace package management (pnpm).",
+    "Add certificate records storage in backend canister with admin-only create/update; public read-only access by secure, non-guessable certificate token/ID.",
+    "Implement public route /certificate/:id (or token) to render verification page with certificate details + validity status (valid/expired) based on next due date.",
+    "Provide PDF generation for certificates (A4, print-ready) including branding + QR code, accessible from admin panel."
+  ],
+  "known_issues": [
+    "Automated build/deployment attempts are failing to complete for the requested feature implementation (AI unable to complete request / deployment error)."
+  ],
+  "isFixRequest": false,
+  "generatedImages": [
+    {
+      "filename": "frontend/public/assets/generated/hero-industrial-fire-safety.dim_1920x800.png",
+      "description": "Generated hero/banner image for industrial fire safety theme.",
+      "targetWidth": 1920,
+      "targetHeight": 800
+    },
+    {
+      "filename": "frontend/public/assets/generated/service-icons-grid.dim_1536x768.png",
+      "description": "Generated grid image for service icons/feature section.",
+      "targetWidth": 1536,
+      "targetHeight": 768
+    },
+    {
+      "filename": "frontend/public/assets/generated/shree-fire-works-logo.dim_512x512.png",
+      "description": "Generated brand logo asset.",
+      "targetWidth": 512,
+      "targetHeight": 512
+    }
+  ],
+  "existing_features": [
+    {
+      "id": "IF-1",
+      "title": "Motoko backend canister scaffold",
+      "synonyms": [
+        "backend canister",
+        "motoko-core"
+      ],
+      "description": "Baseline Motoko canister (main.mo) with generated Candid bindings and local/dev canister configuration for ICP.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-2",
+      "title": "React + Vite + Tailwind frontend scaffold",
+      "synonyms": [
+        "initial-app",
+        "frontend app"
+      ],
+      "description": "React/TypeScript frontend built with Vite and Tailwind, including app entrypoints, global styles, and environment/config wiring.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-3",
+      "title": "shadcn/ui component library installed",
+      "synonyms": [
+        "UI kit",
+        "shadcn"
+      ],
+      "description": "shadcn/ui component set added (accordion, dialogs, forms, navigation, tables, etc.) with supporting utils and hooks.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-4",
+      "title": "Multi-page site with routed pages and site layout components",
+      "synonyms": [
+        "pages",
+        "routing",
+        "site layout"
+      ],
+      "description": "Page structure added (Home, About, Contact, Services, Products, Projects, Industries) with shared header/footer/layout and route + SEO meta content files.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-5",
+      "title": "Internet Identity integration hooks (frontend)",
+      "synonyms": [
+        "II auth",
+        "Internet Identity",
+        "auth hooks"
+      ],
+      "description": "Frontend hooks/utilities for Internet Identity login and actor creation (useInternetIdentity, useActor) and query/meta helpers.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-6",
+      "title": "Build/deploy template for ICP project",
+      "synonyms": [
+        "build template",
+        "docker build",
+        "deploy scripts"
+      ],
+      "description": "Repository includes build-template assets (Dockerfile, deploy.sh, icp.yaml, workspace configs, scripts for image processing) to package and deploy the app.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "IF-7",
+      "title": "Generated static image assets included",
+      "synonyms": [
+        "generated images",
+        "brand assets"
+      ],
+      "description": "Generated hero/banner and logo assets added under frontend/public/assets/generated for site branding and visuals.",
+      "reqIds": [],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-public-certificate-verification-page-route-at-certificate-token-that-fetches-certificate-details-from-the-backend-and-renders-the-specified-layout-sections-and-labels-in-english-including-validity-status-valid-expired-and-a-clear-warning-when-expired-refilling-due-please-contact-authorized-service-provider",
+      "title": "Create a public Certificate Verification page route at /certificate/$token that fetches certificate details from the backend and renders the specified layout sections and labels in English, including validity status (Valid/Expired) and a clear warning when expired: “⚠️ Refilling Due – Please Contact Authorized Service Provider”.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-ui-protected-by-internet-identity-login-to-create-edit-and-list-certificates-with-a-data-entry-form-containing-all-fields-specified-by-the-user-and-automatic-qr-generation-after-saving",
+      "title": "Create an Admin UI (protected by Internet Identity login) to create, edit, and list certificates, with a data entry form containing all fields specified by the user and automatic QR generation after saving.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-qr-code-rendering-on-the-frontend-that-encodes-the-public-verification-url-for-the-certificate-using-the-app-s-deployed-origin-plus-certificate-token-and-display-it-both-on-the-admin-certificate-view-and-on-the-public-verification-page-small-display",
+      "title": "Implement QR code rendering on the frontend that encodes the public verification URL for the certificate (using the app’s deployed origin plus /certificate/<token>), and display it both on the admin certificate view and on the public verification page (small display).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-download-pdf-capability-for-admins-to-generate-an-a4-print-ready-certificate-pdf-that-includes-all-entered-details-company-branding-logo-name-tagline-certificate-number-and-the-qr-code",
+      "title": "Add “Download PDF” capability for admins to generate an A4, print-ready certificate PDF that includes all entered details, company branding (logo/name/tagline), certificate number, and the QR code.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Implement QR-based Fire Extinguisher Certificate Management & Verification System (admin login + data entry, auto certificate number + QR generation, secure public verification page, validity status, and A4 PDF certificate download)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add backend data model and CRUD APIs for Fire Extinguisher Service Certificates, including all admin-entered fields: client/customer name, client address/location (optional), fire extinguisher type, capacity, cylinder manufacturing date, installation date, refilling date, next due date, refilling done by (technician name), tested by, certified by, refilling company name, remarks (optional), and an auto-generated unique certificate number.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement admin-only authorization for certificate creation and editing using Internet Identity principals, ensuring customers/public users have view-only access.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Generate a unique, non-guessable public verification token per certificate and provide a public lookup API keyed by that token to support URLs like /certificate/<token>.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add backend persistence for certificate records with upgrade-safe stable storage; introduce a conditional backend migration to preserve existing stored data (e.g., contact inquiries) while adding certificate storage.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Implement QR-based Fire Extinguisher Certificate Management, Verification Pages, and PDF Downloads",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

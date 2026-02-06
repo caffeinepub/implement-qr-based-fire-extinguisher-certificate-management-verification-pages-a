@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.25rem;
+        /* Industrial fire safety theme - Light mode */
+        --background: 0.99 0 0; /* Near white */
+        --foreground: 0.20 0 0; /* Dark grey text */
+        --card: 1 0 0; /* Pure white */
+        --card-foreground: 0.20 0 0;
+        --popover: 1 0 0;
+        --popover-foreground: 0.20 0 0;
+        /* Primary: Safety Red */
+        --primary: 0.55 0.22 25; /* Industrial red */
+        --primary-foreground: 0.99 0 0; /* White text on red */
+        /* Secondary: Dark Grey */
+        --secondary: 0.30 0 0; /* Dark grey */
+        --secondary-foreground: 0.99 0 0;
+        --muted: 0.95 0 0; /* Light grey */
+        --muted-foreground: 0.45 0 0;
+        --accent: 0.55 0.22 25; /* Red accent */
+        --accent-foreground: 0.99 0 0;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.99 0 0;
+        --border: 0.88 0 0; /* Light border */
+        --input: 0.88 0 0;
+        --ring: 0.55 0.22 25;
+        --chart-1: 0.55 0.22 25;
+        --chart-2: 0.30 0 0;
+        --chart-3: 0.70 0.15 35;
+        --chart-4: 0.40 0 0;
+        --chart-5: 0.60 0 0;
+    }
+
+    .dark {
+        /* Dark mode - Industrial theme */
+        --background: 0.15 0 0; /* Very dark grey */
+        --foreground: 0.95 0 0; /* Off-white text */
+        --card: 0.20 0 0; /* Dark card */
+        --card-foreground: 0.95 0 0;
+        --popover: 0.18 0 0;
+        --popover-foreground: 0.95 0 0;
+        --primary: 0.60 0.24 25; /* Brighter red for dark mode */
+        --primary-foreground: 0.99 0 0;
+        --secondary: 0.25 0 0;
+        --secondary-foreground: 0.95 0 0;
+        --muted: 0.25 0 0;
+        --muted-foreground: 0.65 0 0;
+        --accent: 0.60 0.24 25;
+        --accent-foreground: 0.99 0 0;
+        --destructive: 0.60 0.24 25;
+        --destructive-foreground: 0.99 0 0;
+        --border: 0.30 0 0;
+        --input: 0.30 0 0;
+        --ring: 0.60 0.24 25;
+        --chart-1: 0.60 0.24 25;
+        --chart-2: 0.40 0 0;
+        --chart-3: 0.75 0.18 35;
+        --chart-4: 0.50 0 0;
+        --chart-5: 0.70 0 0;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-bold tracking-tight;
+    }
+    
+    h1 {
+        @apply text-4xl md:text-5xl lg:text-6xl;
+    }
+    
+    h2 {
+        @apply text-3xl md:text-4xl lg:text-5xl;
+    }
+    
+    h3 {
+        @apply text-2xl md:text-3xl;
+    }
+}
+
+@layer components {
+    .container-custom {
+        @apply container mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    
+    .section-padding {
+        @apply py-12 md:py-16 lg:py-24;
+    }
+    
+    .hero-gradient {
+        background: linear-gradient(135deg, oklch(var(--secondary)) 0%, oklch(var(--primary)) 100%);
+    }
+}
